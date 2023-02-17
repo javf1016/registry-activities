@@ -19,9 +19,8 @@ public class Activity {
     private String name;
     private String description;
     private Status status;
-    private LocalDateTime DateEstimatedTimeExecution;
+    private LocalDateTime dateEstimatedTimeExecution;
     private int dayDelay;
-
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employeeId;

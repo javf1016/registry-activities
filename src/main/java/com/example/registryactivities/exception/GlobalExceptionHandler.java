@@ -19,4 +19,15 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<ApiResponse>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse> handlerResourceAlreadyExistsException(ResourceAlreadyExistsException ex){
+        String message = ex.getMessage();
+        ApiResponse response = ApiResponse.builder()
+                .message(message)
+                .success(true)
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .build();
+        return new ResponseEntity<ApiResponse>(response, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
 }

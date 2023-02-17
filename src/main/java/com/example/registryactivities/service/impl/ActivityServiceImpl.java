@@ -1,5 +1,6 @@
 package com.example.registryactivities.service.impl;
 
+import com.example.registryactivities.enums.Status;
 import com.example.registryactivities.exception.ResourceNotFoundException;
 import com.example.registryactivities.model.Activity;
 import com.example.registryactivities.repository.ActivityRepository;
@@ -25,6 +26,7 @@ public class ActivityServiceImpl implements ActivityService {
         LocalDate today = LocalDate.now();
         LocalDate estimatedExecutionDate = activity.getDateEstimatedTimeExecution().toLocalDate();
         long daysDifference = ChronoUnit.DAYS.between(today, estimatedExecutionDate);
+        activity.setStatus(Status.CREATED);
         if (daysDifference < 0) {
             // La actividad está retrasada
             activity.setDayDelay((int)Math.abs(daysDifference));
@@ -36,7 +38,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
     @Override
     public Activity getActivityById(Integer activityId) {
-        return activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity with given Id: "+activityId+" is not found !!!"));
+        Activity activity =activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity with given Id: "+activityId+" is not found !!!"));
+        return activity;
     }
     @Override
     public void delete(Integer activityId) {

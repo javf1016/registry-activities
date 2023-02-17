@@ -1,5 +1,6 @@
 package com.example.registryactivities.controller;
 
+import com.example.registryactivities.enums.Status;
 import com.example.registryactivities.model.Activity;
 import com.example.registryactivities.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/activities")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ActivityController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class ActivityController {
         return activityService.getActivityById(activityId);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{activityId}")
     public void update(@PathVariable Integer activityId, @RequestBody Activity activity) {
         Activity existActivity = activityService.getActivityById(activityId);
         if (existActivity != null) {
